@@ -13,10 +13,18 @@
 //
 // No hints this time ;)
 
-// I AM NOT DONE
+const baseline: u32 = 40;
 
 // Put your function here!
-// fn calculate_price_of_apples {
+fn calculate_price_of_apples(apple_nums: u32) -> u32 {
+    if apple_nums < 0 {
+        0
+    } else if apple_nums <= baseline {
+        apple_nums * 2
+    } else {
+        apple_nums
+    }
+}
 
 // Don't modify this function!
 #[test]
