@@ -7,6 +7,8 @@
 // Execute `rustlings hint from_into` or use the `hint` watch subcommand for a
 // hint.
 
+use std::ops::IndexMut;
+
 #[derive(Debug)]
 struct Person {
     name: String,
@@ -40,10 +42,28 @@ impl Default for Person {
 // If while parsing the age, something goes wrong, then return the default of
 // Person Otherwise, then return an instantiated Person object with the results
 
-// I AM NOT DONE
-
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        if s.len() == 0 {
+            Person::default()
+        } else {
+            if let Some(index) = s.find(',') {
+                // let Ok(split_vec) = s.split(',');
+                let (first_part, second) = s.split_at(index);
+                if first_part.len() == 0 {
+                    return Person::default();
+                }
+                let second_part = &second[1..];
+                if let Ok(age) = second_part.parse::<usize>() {
+                    let parse_result = Person {name: first_part.into(), age: age};
+                    parse_result
+                } else {
+                    Person::default()
+                }
+            } else {
+                Person::default()
+            }
+        }
     }
 }
 
